@@ -1,0 +1,10 @@
+{
+  "name": "$MODULE_NAME",
+  "version": "$VERSION",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Daniel Jabry <djabry@gmail.com>",
+  "publishConfig": {
+    "access": "public"
+  }
+}

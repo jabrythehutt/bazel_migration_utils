@@ -1,0 +1,29 @@
+{
+    "name": "bazel_migration_utils",
+    "license": "MIT",
+    "private": true,
+    "description": "Bazel migration utilities",
+    "author": "Daniel Jabry <djabry@gmail.com>",
+    "devDependencies": {
+        "@bazel/bazel": "latest",
+        "@bazel/buildifier": "latest",
+        "@bazel/ibazel": "latest",
+        "@bazel/jasmine": "^0.42.2",
+        "@bazel/typescript": "latest",
+        "@types/chai": "^4.2.6",
+        "@types/jasmine": "^3.5.0",
+        "@types/jsonpath": "^0.2.0",
+        "@types/node": "^12.12.14",
+        "@types/yargs": "^13.0.3",
+        "chai": "^4.2.0",
+        "jasmine": "^3.5.0",
+        "jsonpath": "^1.0.2",
+        "source-map-support": "^0.5.16",
+        "typescript": "3.7.3",
+        "yargs": "^15.0.2"
+    },
+    "scripts": {
+        "build": "bazel build //...",
+        "test": "bazel test //..."
+    }
+}
