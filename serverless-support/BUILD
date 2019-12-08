@@ -17,6 +17,7 @@ module_name = "@djabry/serverless-support"
 
 ts_library(
     name = "lib",
+    module_name = module_name,
     srcs = glob(
         all_sources,
         exclude = all_tests,

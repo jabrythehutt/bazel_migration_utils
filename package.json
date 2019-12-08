@@ -26,7 +26,6 @@
     },
     "scripts": {
         "build": "bazel build //...",
-        "test": "bazel test //...",
-        "publish-all": "bazel run //lockfile-filter:package.publish && bazel run //serverless-support:package.publish && bazel run //json-value-extractor:package.publish"
+        "test": "bazel test //..."
     }
 }
