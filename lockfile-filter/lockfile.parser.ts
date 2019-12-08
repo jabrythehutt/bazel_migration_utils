@@ -10,7 +10,9 @@ export class LockfileParser {
             const joinedLines = lines.join(this.lineSep);
             return previous + [
                 key,
-                joinedLines
+                joinedLines,
+                // Also add a new line after each block
+                ""
             ].join(this.lineSep);
         }, "");
 
