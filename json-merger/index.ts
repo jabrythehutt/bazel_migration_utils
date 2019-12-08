@@ -1,5 +1,6 @@
-// Based on https://github.com/dataform-co/dataform/blob/master/tools/json-merge/index.ts
+#!/usr/bin/env node
 
+// Based on https://github.com/dataform-co/dataform/blob/master/tools/json-merge/index.ts
 import {readFileSync, writeFileSync} from "fs";
 import yargs from "yargs";
 import {InputArg} from "./input.arg";

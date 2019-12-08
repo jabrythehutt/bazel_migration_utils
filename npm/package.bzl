@@ -20,9 +20,9 @@ def enhanced_npm_package(name, deps, module_name, root_package_json, version, sr
     native.genrule(
         name = package_json_name,
         srcs = [":" + package_deps_name] + package_layers,
-        tools = ["//merge-json:bin"],
+        tools = ["//json-merger:bin"],
         outs = ["package.json"],
-        cmd = "$(location //merge-json:bin) --output-path $(OUTS) --layer-paths $(SRCS) --substitutions '{{ \"$$VERSION\": \"{version}\", \"$$MODULE_NAME\": \"{module_name}\" }}'".format(version = version, module_name = module_name)
+        cmd = "$(location //json-merger:bin) --output-path $(OUTS) --layer-paths $(SRCS) --substitutions '{{ \"$$VERSION\": \"{version}\", \"$$MODULE_NAME\": \"{module_name}\" }}'".format(version = version, module_name = module_name)
     )
 
     npm_package(

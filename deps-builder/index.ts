@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import {readFileSync, writeFileSync} from "fs";
 import yargs from "yargs";
 import {InputArg} from "./input.arg";
