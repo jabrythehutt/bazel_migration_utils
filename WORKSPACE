@@ -39,9 +39,3 @@ ts_setup_workspace()
 
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
-http_archive(
-    name = "com_github_atlassian_bazel_tools",
-    strip_prefix = "bazel-tools-a2138311856f55add11cd7009a5abc8d4fd6f163",
-    urls = ["https://github.com/atlassian/bazel-tools/archive/a2138311856f55add11cd7009a5abc8d4fd6f163.tar.gz"],
-)
