@@ -3,7 +3,6 @@ import yargs from "yargs";
 import {InputArg} from "./input.arg";
 import {LockfileFilter} from "./lockfile.filter";
 import {LockfileParser} from "./lockfile.parser";
-import {readFileSync, writeFileSync} from "fs";
 
 const argv = yargs
     .option(InputArg.InputPath, { requiresArg: true, type: "string" })
@@ -12,11 +11,23 @@ const argv = yargs
 
 const parser = new LockfileParser();
 const filter = new LockfileFilter(parser);
-const input = readFileSync(argv[InputArg.InputPath]).toString();
+const inputPath = argv[InputArg.InputPath];
 const exclude = argv[InputArg.Exclude];
-const filteredFileContent = filter.filter({
-    input,
-    exclude
-});
 const outputPath = argv[InputArg.OutputPath];
-writeFileSync(outputPath, filteredFileContent);
+
+async function filterLines() {
+    try {
+        await filter.filter({
+            filePath: inputPath,
+            outputFilePath: outputPath,
+            exclude
+        });
+    } catch (err) {
+        console.error(err);
+        process.exit(1);
+    }
+
+}
+
+filterLines();
+

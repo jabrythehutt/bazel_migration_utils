@@ -20,6 +20,7 @@
         "jasmine": "^3.5.0",
         "jsonpath": "^1.0.2",
         "source-map-support": "^0.5.16",
+        "ts-stream": "^2.0.1",
         "typescript": "3.7.3",
         "yargs": "^15.0.2"
     },

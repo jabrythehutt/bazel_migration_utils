@@ -1,4 +1,5 @@
 export interface FilterRequest {
-    input: string;
+    filePath: string;
+    outputFilePath: string;
     exclude: string;
 }

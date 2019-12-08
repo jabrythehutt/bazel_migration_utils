@@ -12,6 +12,7 @@ all_tests = [
 module_name = "@djabry/lockfile-filter"
 
 npm_deps = [
+    "@npm//ts-stream",
     "@npm//yargs",
 ]
 
@@ -34,6 +35,7 @@ ts_library(
     deps = [
         ":lib",
         "@npm//@types/chai",
+        "@npm//@types/node",
         "@npm//@types/jasmine",
         "@npm//chai",
     ],
@@ -44,6 +46,7 @@ load("@npm_bazel_jasmine//:index.bzl", "jasmine_node_test")
 jasmine_node_test(
     name = "test",
     deps = [
+        ":test-yarn.lock",
         ":test_lib",
         "@npm//chai",
         "@npm//jasmine",
