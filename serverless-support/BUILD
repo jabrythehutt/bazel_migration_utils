@@ -1,0 +1,60 @@
+package(default_visibility = ["//visibility:public"])
+
+load("@npm_bazel_typescript//:index.bzl", "ts_library")
+
+all_sources = ["**/*.ts"]
+
+all_tests = [
+    "**/*.spec.ts",
+    "**/test/**",
+]
+
+npm_deps = [
+    "@npm//yargs",
+]
+
+module_name = "@djabry/serverless-support"
+
+ts_library(
+    name = "lib",
+    srcs = glob(
+        all_sources,
+        exclude = all_tests,
+    ),
+    deps = [
+        "@npm//@types/node",
+        "@npm//@types/yargs",
+        "@npm//yargs",
+    ],
+)
+
+load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_binary")
+
+nodejs_binary(
+    name = "bin",
+    bootstrap = ["source-map-support/register"],
+    data = [
+        ":lib",
+        "@npm//source-map-support",
+    ],
+    entry_point = ":index.ts",
+)
+
+load("//npm:package.bzl", "enhanced_npm_package")
+load("//:version.bzl", "VERSION")
+
+enhanced_npm_package(
+    name = "package",
+    srcs = [
+        "README.md"
+    ],
+    version = VERSION,
+    module_name = module_name,
+    root_package_json = "//:package.json",
+    npm_deps = npm_deps,
+    package_layers = [
+        "//:common.package.json",
+        ":serverless-support.package.json"
+    ],
+    deps = [":lib"],
+)
