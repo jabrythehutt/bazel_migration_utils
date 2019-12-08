@@ -4,6 +4,7 @@
     "private": true,
     "description": "Bazel migration utilities",
     "author": "Daniel Jabry <djabry@gmail.com>",
+    "repository": "github:djabry/bazel_migration_utils",
     "devDependencies": {
         "@bazel/bazel": "latest",
         "@bazel/buildifier": "latest",
@@ -24,6 +25,7 @@
     },
     "scripts": {
         "build": "bazel build //...",
-        "test": "bazel test //..."
+        "test": "bazel test //...",
+        "publish-all": "bazel run //lockfile-filter:package.publish"
     }
 }
