@@ -1,3 +1,6 @@
 {
-  "description": "Writes parts of a JSON to a file"
+  "description": "Writes parts of a JSON to a file",
+  "bin": {
+    "extract-json-values": "index.js"
+  }
 }

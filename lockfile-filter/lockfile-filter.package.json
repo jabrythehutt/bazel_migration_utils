@@ -1,6 +1,6 @@
 {
   "description": "Filters out entries in yarn.lock files",
   "bin": {
-    "filter": "index.js"
+    "filter-lockfile": "index.js"
   }
 }
