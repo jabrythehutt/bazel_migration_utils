@@ -30,5 +30,4 @@ const jsonString = readFileSync(inputPath).toString();
 const inputValue = JSON.parse(jsonString);
 const result = valueExtractor.getValue(inputValue, jsonPath, selectedKey);
 const outputValue = toOutputString(result);
-console.log("Writing", outputValue, "to", outputPath);
 writeFileSync(outputPath, outputValue);
