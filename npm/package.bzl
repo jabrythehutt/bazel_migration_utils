@@ -10,19 +10,19 @@ def enhanced_npm_package(name, deps, module_name, root_package_json, version, sr
     npm_deps_string = " ".join(npm_deps)
     native.genrule(
         name = package_deps_name,
-        tools = ["//deps-builder:bin", root_package_json],
+        tools = ["@bazel_migration_utils//deps-builder:bin", root_package_json],
         srcs = npm_deps,
         outs = ["package-deps.json"],
-        cmd = "$(location //deps-builder:bin) --output-path $(OUTS) --npm-deps {npm_deps} --package-json-path $(location {root_package_json})".format(npm_deps = npm_deps_string, root_package_json = root_package_json),
+        cmd = "$(location @bazel_migration_utils//deps-builder:bin) --output-path $(OUTS) --npm-deps {npm_deps} --package-json-path $(location {root_package_json})".format(npm_deps = npm_deps_string, root_package_json = root_package_json),
     )
 
     package_json_name = name + "_gen_package_json"
     native.genrule(
         name = package_json_name,
         srcs = [":" + package_deps_name] + package_layers,
-        tools = ["//json-merger:bin"],
+        tools = ["@bazel_migration_utils//json-merger:bin"],
         outs = ["package.json"],
-        cmd = "$(location //json-merger:bin) --output-path $(OUTS) --layer-paths $(SRCS) --substitutions '{{ \"$$VERSION\": \"{version}\", \"$$MODULE_NAME\": \"{module_name}\" }}'".format(version = version, module_name = module_name)
+        cmd = "$(location @bazel_migration_utils//json-merger:bin) --output-path $(OUTS) --layer-paths $(SRCS) --substitutions '{{ \"$$VERSION\": \"{version}\", \"$$MODULE_NAME\": \"{module_name}\" }}'".format(version = version, module_name = module_name)
     )
 
     npm_package(
