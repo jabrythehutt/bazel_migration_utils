@@ -1,6 +1,6 @@
 # Based on https://github.com/dataform-co/dataform/blob/master/tools/npm/package.bzl
 
-load("@build_bazel_rules_nodejs//:defs.bzl", "npm_package")
+load("@build_bazel_rules_nodejs//:index.bzl", "pkg_npm")
 
 def enhanced_npm_package(name, deps, module_name, root_package_json, version, srcs = [], package_layers = [], npm_deps = []):
 
@@ -25,7 +25,7 @@ def enhanced_npm_package(name, deps, module_name, root_package_json, version, sr
         cmd = "$(location @bazel_migration_utils//json-merger:bin) --output-path $(OUTS) --layer-paths $(SRCS) --substitutions '{{ \"$$VERSION\": \"{version}\", \"$$MODULE_NAME\": \"{module_name}\" }}'".format(version = version, module_name = module_name)
     )
 
-    npm_package(
+    pkg_npm(
         name = name,
         srcs = srcs,
         deps = deps + [package_json_name],

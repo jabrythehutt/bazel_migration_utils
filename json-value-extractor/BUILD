@@ -28,6 +28,9 @@ ts_library(
     ] + npm_deps,
 )
 
+
+
+
 ts_library(
     name = "test_lib",
     srcs = glob(all_tests),
@@ -50,17 +53,17 @@ jasmine_node_test(
     ],
 )
 
-load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_binary")
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 
 nodejs_binary(
     name = "bin",
-    bootstrap = ["source-map-support/register"],
     data = [
         ":lib",
         "@npm//source-map-support",
     ],
     entry_point = ":index.ts",
 )
+
 
 load("//npm:package.bzl", "enhanced_npm_package")
 load("//:version.bzl", "VERSION")
@@ -79,5 +82,20 @@ enhanced_npm_package(
         ":json-value-extractor.package.json"
     ],
     deps = [":lib"],
+)
+
+
+
+load("@com_github_atlassian_bazel_tools//:multirun/def.bzl", "command")
+
+command(
+    name = "publish",
+    command = ":package.publish",
+        arguments = [
+        ],
+        environment = {
+        },
+        raw_environment = {
+        },
 )
 

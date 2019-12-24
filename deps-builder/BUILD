@@ -45,11 +45,10 @@ jasmine_node_test(
     ],
 )
 
-load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_binary")
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 
 nodejs_binary(
     name = "bin",
-    bootstrap = ["source-map-support/register"],
     data = [
         ":lib",
         "@npm//source-map-support",

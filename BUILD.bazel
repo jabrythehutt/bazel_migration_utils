@@ -6,3 +6,13 @@
 #   so that ts_library rules still use it by default.
 #   See https://www.npmjs.com/package/@bazel/typescript#installation
 exports_files(["tsconfig.json", "common.package.json", "package.json", "yarn.lock"], visibility = ["//:__subpackages__"])
+
+
+load("@com_github_atlassian_bazel_tools//:multirun/def.bzl", "multirun", "command")
+
+multirun(
+    name = "publish",
+    commands = [
+        "//json-value-extractor:publish"
+    ],
+)
