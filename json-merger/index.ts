@@ -4,6 +4,7 @@
 import {readFileSync, writeFileSync} from "fs";
 import yargs from "yargs";
 import {InputArg} from "./input.arg";
+import {JsonFileMerger} from "./json-file.merger";
 
 const argv = yargs
     .option(InputArg.OutputPath, { required: true })
@@ -15,14 +16,10 @@ const layerPaths = argv.layerPaths as string[];
 const substitutions = JSON.parse(argv.substitutions || JSON.stringify({})) as Record<string, string>;
 
 // Merge layers in the given order.
-const result = layerPaths
-    .map((layerPath: string) => JSON.parse(readFileSync(layerPath).toString()))
-    .reduce(
-        (accumulatorJson: object, layerJson: object) => ({ ...accumulatorJson, ...layerJson }),
-        {}
-    );
+const merger = new JsonFileMerger();
+const resultObject = merger.mergeFiles(layerPaths);
 
-let resultString = JSON.stringify(result, null, 4);
+let resultString = JSON.stringify(resultObject, null, 4);
 
 // Apply any plain string substitutions.
 if (substitutions) {
