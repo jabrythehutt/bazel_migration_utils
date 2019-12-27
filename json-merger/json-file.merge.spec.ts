@@ -32,5 +32,23 @@ describe("JSON file merger", () => {
 
     });
 
+    it("Uses the last value", () => {
+        const object1 = {
+            foo: {
+                bar: "baz"
+            }
+        };
+
+        const object2 = {
+            foo: {
+                bar: "foo"
+            }
+        };
+
+        const result = instance.merge<any>([object1, object2]);
+        expect(result).to.deep.equal(object2);
+
+    });
+
 
 });
