@@ -62,24 +62,24 @@
   resolved "https://registry.yarnpkg.com/@bazel/ibazel/-/ibazel-0.11.1.tgz#c07ceaded388f1e39d6aa732953e0dd04f3dbdf0"
   integrity sha512-qAdEquFAudYyN+CYfLzvuRWNubdsh6C8+o5CiViUEfchq1HQM5Rs8xAOE3fzGsTZ1EUsvgca/PY0kn0VIxckBA==
 
-"@bazel/jasmine@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@bazel/jasmine/-/jasmine-1.1.0.tgz#3900a99b57ceac1e979aa0d64b624a70a4ebd92e"
-  integrity sha512-3KuA7eNBu4OyHWP5k8pZJlpdThPfvFQViNDMawmz80KLfp1qbHkMYaVd5Drfa6MmDXjC7QNAGG7zRe0DOrEJ2Q==
+"@bazel/jasmine@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@bazel/jasmine/-/jasmine-1.2.0.tgz#0225cba4d678fabc9da4f70dc48ba22b7f523dd1"
+  integrity sha512-o6OjPHOfnNSRPWsEslGmN9k5PqqsyY6FS7zhn/xQMy/oOqveOPlva0tx/aAKJRLpLIw2Rpp7WoY/GaVDbfUqVA==
   dependencies:
     jasmine "~3.4.0"
     jasmine-core "~3.4.0"
     v8-coverage "1.0.9"
 
-"@bazel/rollup@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@bazel/rollup/-/rollup-1.1.0.tgz#e1e496d77fcd55971ff4ef51e982476dfe092ac8"
-  integrity sha512-FiSiXZ/AOWnAVR39gLVYlATe/clGyvap5skiILtDksVtm6C620Rkqr/4QfIdFHZzdMb+eaxbRbMkOxux4O2McQ==
+"@bazel/rollup@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@bazel/rollup/-/rollup-1.2.0.tgz#8b9569ed6f1c00d2a833567901f8ee4600a389fb"
+  integrity sha512-yrXW+AAUoqc9qN/CweD5p8OEN9bNKFjXnXPBRE4w84LxpkmaJFx+yQJ++c1F57zWMoq2o9EV4CM7y+mK8zxwUg==
 
-"@bazel/typescript@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-1.1.0.tgz#b57ac6c6d627577f394a60fb540fbbdf53bcff0d"
-  integrity sha512-QnTdb6rwZUR+KfUuAdyazpkA7BOvrWRe7tkPDdyIZHJdBPYdpJW+AapnFSfxvXEIP0Nwesl5KP6Saau0GPiBLg==
+"@bazel/typescript@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-1.2.0.tgz#ab2016e1d6eb7a86b44536e887f51eaf3d75f1a7"
+  integrity sha512-hPEG8K0psyEcs6HFRiqZNQwXL/dQ8sXKdrNFWv87+rh+YUNfd58uktoynhllympOPThcbUZcZicLWBEFQOc8nA==
   dependencies:
     protobufjs "6.8.8"
     semver "5.6.0"
