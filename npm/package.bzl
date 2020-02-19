@@ -30,11 +30,3 @@ def enhanced_npm_package(name, deps, module_name, root_package_json, version, sr
         srcs = srcs,
         deps = deps + [package_json_name],
     )
-
-    native.genrule(
-        name = name + "_tar",
-        srcs = [":" + name],
-        outs = [name + ".tgz"],
-        cmd = "tar -cvzf $(location {name}.tgz) -C $(location :{name})/.. --dereference {name}"
-            .format(name = name),
-    )
