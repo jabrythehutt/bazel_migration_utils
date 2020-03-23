@@ -29,6 +29,7 @@
     },
     "scripts": {
         "build": "bazelisk build //...",
-        "test": "bazelisk test //..."
+        "test": "bazelisk test //...",
+        "deploy": "./publish.sh"
     }
 }
