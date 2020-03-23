@@ -12,11 +12,11 @@ all_tests = [
 npm_deps = [
     "@npm//yargs",
 ]
-
-module_name = "@djabry/serverless-support"
+lib_name = "serverless-support"
+module_name = "@djabry/" + lib_name
 
 ts_library(
-    name = "serverless-support",
+    name = lib_name,
     module_name = module_name,
     srcs = glob(
         all_sources,
@@ -34,10 +34,10 @@ load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 nodejs_binary(
     name = "bin",
     data = [
-        ":serverless-support",
+        lib_name,
         "@npm//source-map-support",
     ],
-    entry_point = ":index.ts",
+    entry_point = "cli.ts",
 )
 
 load("//npm:package.bzl", "enhanced_npm_package")
@@ -56,5 +56,7 @@ enhanced_npm_package(
         "//:common.package.json",
         "template.package.json"
     ],
-    deps = [":serverless-support"],
+    deps = [
+        lib_name
+    ],
 )

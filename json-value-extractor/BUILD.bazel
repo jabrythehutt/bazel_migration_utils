@@ -9,14 +9,16 @@ all_tests = [
     "**/test/**",
 ]
 
-module_name = "@djabry/json-value-extractor"
+lib_name = "json-value-extractor"
+
+module_name = "@djabry/" + lib_name
 npm_deps = [
     "@npm//jsonpath",
     "@npm//yargs",
 ]
 
 ts_library(
-    name = "json-value-extractor",
+    name = lib_name,
     srcs = glob(
         all_sources,
         exclude = all_tests,
@@ -35,7 +37,7 @@ ts_library(
     name = "test_lib",
     srcs = glob(all_tests),
     deps = [
-        ":json-value-extractor",
+        lib_name,
         "@npm//@types/chai",
         "@npm//@types/jasmine",
         "@npm//chai",
@@ -58,7 +60,7 @@ load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 nodejs_binary(
     name = "bin",
     data = [
-        ":json-value-extractor",
+        lib_name,
         "@npm//source-map-support",
     ],
     entry_point = ":index.ts",
@@ -81,21 +83,7 @@ enhanced_npm_package(
         "//:common.package.json",
         "template.package.json"
     ],
-    deps = [":json-value-extractor"],
+    deps = [
+        lib_name
+    ],
 )
-
-
-
-load("@com_github_atlassian_bazel_tools//:multirun/def.bzl", "command")
-
-command(
-    name = "publish",
-    command = ":package.publish",
-        arguments = [
-        ],
-        environment = {
-        },
-        raw_environment = {
-        },
-)
-

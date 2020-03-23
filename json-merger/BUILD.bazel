@@ -1,5 +1,7 @@
 package(default_visibility = ["//visibility:public"])
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
+load("//npm:package.bzl", "enhanced_npm_package")
+load("//:version.bzl", "VERSION")
 
 all_sources = ["*.ts"]
 
@@ -7,18 +9,26 @@ all_tests = [
     "*.spec.ts"
 ]
 
+lib_name = "lib"
+
+module_name = "@djabry/json-merger"
+
+npm_deps = [
+    "@npm//yargs",
+    "@npm//lodash"
+]
+
 ts_library(
-    name = "json-merger",
+    name = lib_name,
+    module_name = module_name,
     srcs = glob(
         all_sources,
         exclude = all_tests,
     ),
     deps = [
         "@npm//@types/node",
-        "@npm//@types/yargs",
-        "@npm//yargs",
-        "@npm//lodash"
-    ],
+        "@npm//@types/yargs"
+    ] + npm_deps,
 )
 
 all_tests = ["*.spec.ts"]
@@ -27,7 +37,7 @@ ts_library(
     name = "test_lib",
     srcs = glob(all_tests),
     deps = [
-        ":json-merger",
+        lib_name,
         "@npm//@types/chai",
         "@npm//@types/jasmine",
         "@npm//chai",
@@ -50,8 +60,25 @@ load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 nodejs_binary(
     name = "bin",
     data = [
-        ":json-merger",
+        lib_name,
         "@npm//source-map-support",
     ],
-    entry_point = ":index.ts",
+    entry_point = ":cli.ts",
+)
+
+enhanced_npm_package(
+    name = "package",
+    srcs = [
+    ],
+    version = VERSION,
+    module_name = module_name,
+    root_package_json = "//:package.json",
+    npm_deps = npm_deps,
+    package_layers = [
+        "//:common.package.json",
+        "template.package.json"
+    ],
+    deps = [
+        lib_name
+    ],
 )

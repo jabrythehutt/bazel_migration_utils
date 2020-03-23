@@ -1,6 +1,10 @@
 package(default_visibility = ["//visibility:public"])
 
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
+load("//npm:package.bzl", "enhanced_npm_package")
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+load("@npm_bazel_jasmine//:index.bzl", "jasmine_node_test")
+load("//:version.bzl", "VERSION")
 
 all_sources = ["**/*.ts"]
 
@@ -9,7 +13,9 @@ all_tests = [
     "**/test/**",
 ]
 
-module_name = "@djabry/lockfile-filter"
+lib_name = "lockfile-filter"
+
+module_name = "@djabry/" + lib_name
 
 npm_deps = [
     "@npm//ts-stream",
@@ -17,7 +23,7 @@ npm_deps = [
 ]
 
 ts_library(
-    name = "lockfile-filter",
+    name = lib_name,
     module_name = module_name,
     srcs = glob(
         all_sources,
@@ -33,15 +39,13 @@ ts_library(
     name = "test_lib",
     srcs = glob(all_tests),
     deps = [
-        ":lockfile-filter",
+        lib_name,
         "@npm//@types/chai",
         "@npm//@types/node",
         "@npm//@types/jasmine",
         "@npm//chai",
     ],
 )
-
-load("@npm_bazel_jasmine//:index.bzl", "jasmine_node_test")
 
 jasmine_node_test(
     name = "test",
@@ -53,19 +57,18 @@ jasmine_node_test(
     ],
 )
 
-load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+
 
 nodejs_binary(
     name = "bin",
     data = [
-        ":lockfile-filter",
+        lib_name,
         "@npm//source-map-support",
     ],
-    entry_point = ":index.ts",
+    entry_point = "cli.ts",
 )
 
-load("//npm:package.bzl", "enhanced_npm_package")
-load("//:version.bzl", "VERSION")
+
 
 enhanced_npm_package(
     name = "package",
@@ -80,6 +83,8 @@ enhanced_npm_package(
         "//:common.package.json",
         "template.package.json"
     ],
-    deps = [":lockfile-filter"],
+    deps = [
+        lib_name
+    ],
 )
 

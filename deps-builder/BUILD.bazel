@@ -9,8 +9,12 @@ all_tests = [
     "**/test/**",
 ]
 
+lib_name = "lib"
+module_name = "@djabry/deps-builder"
+
 ts_library(
-    name = "deps-builder",
+    name = lib_name,
+    module_name = module_name,
     srcs = glob(
         all_sources,
         exclude = all_tests,
@@ -27,7 +31,7 @@ ts_library(
     name = "test_lib",
     srcs = glob(all_tests),
     deps = [
-        ":deps-builder",
+        lib_name,
         "@npm//@types/chai",
         "@npm//@types/jasmine",
         "@npm//chai",
@@ -50,8 +54,8 @@ load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 nodejs_binary(
     name = "bin",
     data = [
-        ":deps-builder",
+        lib_name,
         "@npm//source-map-support",
     ],
-    entry_point = ":index.ts",
+    entry_point = "cli.ts",
 )
