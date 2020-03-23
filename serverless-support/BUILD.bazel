@@ -9,15 +9,14 @@ all_tests = [
     "**/test/**",
 ]
 
-module_name = "@djabry/lockfile-filter"
-
 npm_deps = [
-    "@npm//ts-stream",
     "@npm//yargs",
 ]
 
+module_name = "@djabry/serverless-support"
+
 ts_library(
-    name = "lib",
+    name = "serverless-support",
     module_name = module_name,
     srcs = glob(
         all_sources,
@@ -26,30 +25,7 @@ ts_library(
     deps = [
         "@npm//@types/node",
         "@npm//@types/yargs",
-    ] + npm_deps,
-)
-
-ts_library(
-    name = "test_lib",
-    srcs = glob(all_tests),
-    deps = [
-        ":lib",
-        "@npm//@types/chai",
-        "@npm//@types/node",
-        "@npm//@types/jasmine",
-        "@npm//chai",
-    ],
-)
-
-load("@npm_bazel_jasmine//:index.bzl", "jasmine_node_test")
-
-jasmine_node_test(
-    name = "test",
-    deps = [
-        ":test-yarn.lock",
-        ":test_lib",
-        "@npm//chai",
-        "@npm//jasmine",
+        "@npm//yargs",
     ],
 )
 
@@ -58,7 +34,7 @@ load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 nodejs_binary(
     name = "bin",
     data = [
-        ":lib",
+        ":serverless-support",
         "@npm//source-map-support",
     ],
     entry_point = ":index.ts",
@@ -78,8 +54,7 @@ enhanced_npm_package(
     npm_deps = npm_deps,
     package_layers = [
         "//:common.package.json",
-        ":lockfile-filter.package.json"
+        "template.package.json"
     ],
-    deps = [":lib"],
+    deps = [":serverless-support"],
 )
-
