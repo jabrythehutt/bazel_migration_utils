@@ -1,6 +1,6 @@
 package(default_visibility = ["//visibility:public"])
-
-load("@npm_bazel_typescript//:index.bzl", "ts_library")
+load("//npm:package.bzl", "enhanced_npm_package")
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
 
 all_sources = ["**/*.ts"]
 
@@ -12,6 +12,7 @@ all_tests = [
 lib_name = "json-value-extractor"
 
 module_name = "@djabry/" + lib_name
+
 npm_deps = [
     "@npm//jsonpath",
     "@npm//yargs",
@@ -30,9 +31,6 @@ ts_library(
     ] + npm_deps,
 )
 
-
-
-
 ts_library(
     name = "test_lib",
     srcs = glob(all_tests),
@@ -44,7 +42,7 @@ ts_library(
     ],
 )
 
-load("@npm_bazel_jasmine//:index.bzl", "jasmine_node_test")
+load("@npm//@bazel/jasmine:index.bzl", "jasmine_node_test")
 
 jasmine_node_test(
     name = "test",
@@ -67,23 +65,19 @@ nodejs_binary(
 )
 
 
-load("//npm:package.bzl", "enhanced_npm_package")
-load("//:version.bzl", "VERSION")
-
 enhanced_npm_package(
     name = "package",
     srcs = [
-        "README.md"
+        "README.md",
     ],
-    version = VERSION,
     module_name = module_name,
-    root_package_json = "//:package.json",
     npm_deps = npm_deps,
     package_layers = [
         "//:common.package.json",
-        "template.package.json"
+        "template.package.json",
     ],
+    root_package_json = "//:package.json",
     deps = [
-        lib_name
+        lib_name,
     ],
 )

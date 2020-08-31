@@ -1,0 +1,18 @@
+package(default_visibility = ["//visibility:public"])
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+
+ts_library(
+    name = "lib",
+    srcs = glob(["*.ts"]),
+    deps = [
+        "@npm//yargs",
+        "@npm//@types/node"
+    ]
+)
+
+nodejs_binary(
+    name = "generate-registry-package-json",
+    entry_point = "generate-registry-package-json.ts",
+    data = ["lib"]
+)

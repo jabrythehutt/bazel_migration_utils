@@ -1,6 +1,5 @@
 package(default_visibility = ["//visibility:public"])
-
-load("@npm_bazel_typescript//:index.bzl", "ts_library")
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
 
 all_sources = ["**/*.ts"]
 
@@ -10,15 +9,16 @@ all_tests = [
 ]
 
 lib_name = "lib"
+
 module_name = "@djabry/deps-builder"
 
 ts_library(
     name = lib_name,
-    module_name = module_name,
     srcs = glob(
         all_sources,
         exclude = all_tests,
     ),
+    module_name = module_name,
     deps = [
         "@npm//@types/node",
         "@npm//@types/yargs",
@@ -38,7 +38,7 @@ ts_library(
     ],
 )
 
-load("@npm_bazel_jasmine//:index.bzl", "jasmine_node_test")
+load("@npm//@bazel/jasmine:index.bzl", "jasmine_node_test")
 
 jasmine_node_test(
     name = "test",

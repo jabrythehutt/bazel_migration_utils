@@ -1,10 +1,8 @@
 {
-  "name": "$MODULE_NAME",
-  "version": "$VERSION",
-  "main": "index.js",
-  "license": "MIT",
   "author": "Daniel Jabry <djabry@gmail.com>",
-  "publishConfig": {
-    "access": "public"
-  }
+  "license": "ISC",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "sideEffects": false,
+  "repository": "github:jabrythehutt/fs-s3"
 }

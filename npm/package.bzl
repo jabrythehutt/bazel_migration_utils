@@ -2,7 +2,7 @@
 
 load("@build_bazel_rules_nodejs//:index.bzl", "pkg_npm")
 
-def enhanced_npm_package(name, deps, module_name, root_package_json, version, srcs = [], package_layers = [], npm_deps = []):
+def enhanced_npm_package(name, deps, module_name, root_package_json, version = "0.0.0-PLACEHOLDER", srcs = [], package_layers = [], npm_deps = []):
 
     # Generate the "dependencies" section of the output package.json
     package_deps_name = name + "_package_deps"

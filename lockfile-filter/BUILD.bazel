@@ -1,10 +1,9 @@
 package(default_visibility = ["//visibility:public"])
 
-load("@npm_bazel_typescript//:index.bzl", "ts_library")
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
 load("//npm:package.bzl", "enhanced_npm_package")
 load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
-load("@npm_bazel_jasmine//:index.bzl", "jasmine_node_test")
-load("//:version.bzl", "VERSION")
+load("@npm//@bazel/jasmine:index.bzl", "jasmine_node_test")
 
 all_sources = ["**/*.ts"]
 
@@ -24,11 +23,11 @@ npm_deps = [
 
 ts_library(
     name = lib_name,
-    module_name = module_name,
     srcs = glob(
         all_sources,
         exclude = all_tests,
     ),
+    module_name = module_name,
     deps = [
         "@npm//@types/node",
         "@npm//@types/yargs",
@@ -41,8 +40,8 @@ ts_library(
     deps = [
         lib_name,
         "@npm//@types/chai",
-        "@npm//@types/node",
         "@npm//@types/jasmine",
+        "@npm//@types/node",
         "@npm//chai",
     ],
 )
@@ -57,8 +56,6 @@ jasmine_node_test(
     ],
 )
 
-
-
 nodejs_binary(
     name = "bin",
     data = [
@@ -68,23 +65,19 @@ nodejs_binary(
     entry_point = "cli.ts",
 )
 
-
-
 enhanced_npm_package(
     name = "package",
     srcs = [
-        "README.md"
+        "README.md",
     ],
-    version = VERSION,
     module_name = module_name,
-    root_package_json = "//:package.json",
     npm_deps = npm_deps,
     package_layers = [
         "//:common.package.json",
-        "template.package.json"
+        "template.package.json",
     ],
+    root_package_json = "//:package.json",
     deps = [
-        lib_name
+        lib_name,
     ],
 )
-

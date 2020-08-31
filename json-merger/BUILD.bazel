@@ -1,37 +1,26 @@
 package(default_visibility = ["//visibility:public"])
-load("@npm_bazel_typescript//:index.bzl", "ts_library")
+load("//package-builder:index.bzl", "library")
+load("@npm//@bazel/jasmine:index.bzl", "jasmine_node_test")
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+load("//:scope.bzl", "SCOPE")
 load("//npm:package.bzl", "enhanced_npm_package")
-load("//:version.bzl", "VERSION")
+
 
 all_sources = ["*.ts"]
 
 all_tests = [
-    "*.spec.ts"
+    "*.spec.ts",
 ]
-
-lib_name = "lib"
-
-module_name = "@djabry/json-merger"
 
 npm_deps = [
     "@npm//yargs",
-    "@npm//lodash"
+    "@npm//lodash",
 ]
 
-ts_library(
-    name = lib_name,
-    module_name = module_name,
-    srcs = glob(
-        all_sources,
-        exclude = all_tests,
-    ),
-    deps = [
-        "@npm//@types/node",
-        "@npm//@types/yargs"
-    ] + npm_deps,
+library(
+    srcs = glob(all_sources, exclude = all_tests),
+    deps = npm_deps
 )
-
-all_tests = ["*.spec.ts"]
 
 ts_library(
     name = "test_lib",
@@ -44,8 +33,6 @@ ts_library(
     ],
 )
 
-load("@npm_bazel_jasmine//:index.bzl", "jasmine_node_test")
-
 jasmine_node_test(
     name = "test",
     deps = [
@@ -54,8 +41,6 @@ jasmine_node_test(
         "@npm//jasmine",
     ],
 )
-
-load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 
 nodejs_binary(
     name = "bin",
@@ -70,15 +55,14 @@ enhanced_npm_package(
     name = "package",
     srcs = [
     ],
-    version = VERSION,
     module_name = module_name,
-    root_package_json = "//:package.json",
     npm_deps = npm_deps,
     package_layers = [
         "//:common.package.json",
-        "template.package.json"
+        "template.package.json",
     ],
+    root_package_json = "//:package.json",
     deps = [
-        lib_name
+        lib_name,
     ],
 )

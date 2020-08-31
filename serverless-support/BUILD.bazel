@@ -1,6 +1,7 @@
 package(default_visibility = ["//visibility:public"])
 
-load("@npm_bazel_typescript//:index.bzl", "ts_library")
+load("//npm:package.bzl", "enhanced_npm_package")
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
 
 all_sources = ["**/*.ts"]
 
@@ -12,16 +13,18 @@ all_tests = [
 npm_deps = [
     "@npm//yargs",
 ]
+
 lib_name = "serverless-support"
+
 module_name = "@djabry/" + lib_name
 
 ts_library(
     name = lib_name,
-    module_name = module_name,
     srcs = glob(
         all_sources,
         exclude = all_tests,
     ),
+    module_name = module_name,
     deps = [
         "@npm//@types/node",
         "@npm//@types/yargs",
@@ -40,23 +43,20 @@ nodejs_binary(
     entry_point = "cli.ts",
 )
 
-load("//npm:package.bzl", "enhanced_npm_package")
-load("//:version.bzl", "VERSION")
 
 enhanced_npm_package(
     name = "package",
     srcs = [
-        "README.md"
+        "README.md",
     ],
-    version = VERSION,
     module_name = module_name,
-    root_package_json = "//:package.json",
     npm_deps = npm_deps,
     package_layers = [
         "//:common.package.json",
-        "template.package.json"
+        "template.package.json",
     ],
+    root_package_json = "//:package.json",
     deps = [
-        lib_name
+        lib_name,
     ],
 )
